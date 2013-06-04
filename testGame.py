@@ -38,7 +38,7 @@ mousex, mousey = 0, 0
 
 fontObj = pygame.font.Font('freesansbold.ttf', 32)
 msg = load_level.title
-soundObj = pygame.mixer.Sound('boing.wav')
+soundObj = pygame.mixer.Sound('Resources/boing.wav')
 
 while True:
     screen.fill(whiteColor)

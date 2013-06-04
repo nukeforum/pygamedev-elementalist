@@ -13,7 +13,7 @@ class actor(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         #setup player gfx
-        self.surface = pygame.image.load('gordon_freeman.gif')
+        self.surface = pygame.image.load('Resources/gordon_freeman.gif')
         self.rect = self.surface.get_rect()
         self.rect.topleft = start_pos
 

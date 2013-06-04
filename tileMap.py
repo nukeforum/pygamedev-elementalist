@@ -2,7 +2,7 @@ import pygame
 
 class Tile(object):
     def __init__(self, tileId, topLeft):
-        self.surface = pygame.image.load('tex' + str(tileId) + '.png')
+        self.surface = pygame.image.load('Resources/tex' + str(tileId) + '.png')
         self.rect = self.surface.get_rect()
         self.rect.topleft = topLeft
 

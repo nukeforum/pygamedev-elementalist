@@ -12,7 +12,7 @@ class enemy(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         #setup gfx
-        self.surface = pygame.image.load('gordon_freeman.gif')
+        self.surface = pygame.image.load('Resources/gordon_freeman.gif')
         self.rect = self.surface.get_rect()
         self.rect.topleft = pos
 
