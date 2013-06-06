@@ -4,10 +4,13 @@ import pc
 import npc
 import pygame, sys
 import levelMap
+import random
 from pygame.locals import *
         
 pygame.init()
 fpsClock = pygame.time.Clock()
+
+screen_dim = (640,480)
 
 screen = pygame.display.set_mode((640,480))
 pygame.display.set_caption('game')
@@ -17,13 +20,13 @@ pygame.key.set_repeat(1,1)
 milli = fpsClock.tick()
 seconds = milli / 1000.
 
-load_level = levelMap.main_menu()
+load_level = levelMap.level()
 
 player = pc.actor((0, 0, 0), (50, 50))
 player.giveLevel(load_level.lmap)
 enemies = []
-spawnTimer = 5000
-lastSpawn = time.clock()
+spawnTimer = 5
+spawnTrigger = False
 
 keys = {pygame.K_LEFT : False,
         pygame.K_RIGHT : False,
@@ -51,10 +54,14 @@ while True:
         bullet.move(seconds)
         bullet.update()
         screen.blit(bullet.surface, bullet.rect)
-        if bullet.rect[0] > 640 or bullet.rect[0] < 0 or bullet.rect[len(bullet.pos) - 1] > 480 or bullet.rect[len(bullet.pos) - 1] < 0:
+        for baddie in enemies:
+            if super(Sprite, bullet).collide_rect(baddie.rect):
+                print "killed baddie!"
+                enemies.del(baddie)
+        if bullet.rect[0] > screen_dim[0] or bullet.rect[0] < 0 or bullet.rect[len(bullet.pos) - 1] > screen_dim[1] or bullet.rect[len(bullet.pos) - 1] < 0:
             player.projectiles.remove(bullet)
     for baddie in enemies:
-        baddie.update(player.rect)
+        #baddie.update(player.rect, seconds)
         screen.blit(baddie.surface, baddie.rect)
 
     msgSurfaceObj = fontObj.render(msg, False, blueColor)
@@ -73,9 +80,15 @@ while True:
         player.move(pressed, seconds)
         player.shoot(pressed)
 
-    if (time.clock() - lastSpawn) > spawnTimer:
-        lastSpawn = time.clock()
-        enemies.append(npc.enemy((150,150)))
+    #spawning timer
+    if int(time.clock()) % spawnTimer == 1 and not spawnTrigger:
+        spawnTrigger = True
+    if int(time.clock()) % spawnTimer == 0 and spawnTrigger:
+        spawnTrigger = False
+        print "spawned"
+        #lastSpawn = time.clock()
+        enemies.append(npc.enemy((random.randint(0,screen_dim[0]),
+                                  random.randint(0,screen_dim[1]))))
 
     player.update()
     pygame.display.update()

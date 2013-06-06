@@ -52,7 +52,7 @@ class actor(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE]:
             if (time.clock() - self.last_attack) > self.base_attack_cd:
                 self.lastshoot = time.clock()
-                self.projectiles.append(projectile.projectile(self.rect, 'projectile.gif', self.facing, self.projSpeed))
+                self.projectiles.append(projectile.projectile(self.rect, 'Resources/projectile.gif', self.facing, self.projSpeed))
 
     #face and orient the sprite
     def orient(self, o_vec):

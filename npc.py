@@ -12,7 +12,7 @@ class enemy(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         #setup gfx
-        self.surface = pygame.image.load('Resources/gordon_freeman.gif')
+        self.surface = pygame.image.load('Resources/square-red.gif')
         self.rect = self.surface.get_rect()
         self.rect.topleft = pos
 
@@ -26,7 +26,7 @@ class enemy(pygame.sprite.Sprite):
         self.dest_vector = pos
 
     #move the object
-    def move(self, target_pos):
+    def move(self, target_pos, cr):
         moverate = cr*self.speed
         move_vector = behaviors.behavior1(self.rect, target_pos)
 
@@ -49,6 +49,6 @@ class enemy(pygame.sprite.Sprite):
         self.facing = o_vec
 
     #update the object
-    def update(self, target_pos):
-        self.move(target_pos)
-        self.rect = map(alg.numstep, zip(self.rect, self.dest_vector))
+    def update(self, target_pos, cr):
+        self.move(target_pos, cr)
+        #self.rect = map(alg.numstep, zip(self.rect, self.dest_vector))
